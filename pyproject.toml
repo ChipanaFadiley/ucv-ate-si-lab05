@@ -1,0 +1,36 @@
+[project]
+name = "lab5-metrics"
+version = "0.1.0"
+description = "Sistema de analisis estadistico de imagenes con metricas via API."
+authors = [
+    { name = "UCV ATE SI" }
+]
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "fastapi>=0.115.0",
+    "matplotlib>=3.9.0",
+    "numpy>=2.0.0",
+    "opencv-python>=4.10.0.84",
+    "python-multipart>=0.0.12",
+    "uvicorn>=0.30.0"
+]
+
+[tool.poetry]
+packages = [
+    { include = "lab5_metrics", from = "src" }
+]
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0.0"
+pytest-cov = ">=5.0.0"
+httpx = "^0.28.1"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "--cov=lab5_metrics --cov-report=xml --cov-report=term-missing"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
