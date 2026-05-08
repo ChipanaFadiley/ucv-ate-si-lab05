@@ -17,7 +17,3 @@ src/lab5_metrics/analyzer.py: calculo de metricas e histograma
 tests/test_api.py: pruebas de la API
 tests/test_metrics.py: pruebas de metricas
 tests/test_metrics_service.py: pruebas del servicio
-
-Evidencias
-docs/evidencias/imagenes: imagenes usadas para la prueba
-docs/evidencias/histogramas: graficos generados con matplotlib
