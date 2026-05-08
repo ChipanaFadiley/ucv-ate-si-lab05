@@ -33,11 +33,18 @@ jobs:
 
       - name: Validate SonarQube token
         shell: pwsh
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          if ("${{ secrets.SONAR_TOKEN }}" -eq "") {
+          if ("$env:SONAR_TOKEN" -eq "") {
             throw "SONAR_TOKEN is not configured in GitHub Actions secrets."
           }
-          "SONAR_TOKEN is configured."
+          $headers = @{ Authorization = "Bearer $env:SONAR_TOKEN" }
+          $result = Invoke-RestMethod -Uri "https://sonarcloud.io/api/authentication/validate" -Headers $headers
+          if (-not $result.valid) {
+            throw "SONAR_TOKEN is configured, but SonarCloud reports it is not valid."
+          }
+          "SONAR_TOKEN is configured and valid."
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
