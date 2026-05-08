@@ -1,18 +1,16 @@
-name: SonarCloud
+name: Build
 
 on:
   push:
     branches:
       - main
-      - develop
   pull_request:
-    branches:
-      - main
-      - develop
+    types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    runs-on: ubuntu-latest
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -34,10 +32,7 @@ jobs:
       - name: Run tests with coverage
         run: poetry run pytest -p pytest_cov --cov=src/lab5_metrics --cov-report=xml
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v7
-        with:
-          args: >
-            -Dsonar.python.version=3.11
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
