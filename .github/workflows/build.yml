@@ -31,6 +31,14 @@ jobs:
       - name: Run tests with coverage
         run: poetry run pytest
 
+      - name: Validate SonarQube token
+        shell: pwsh
+        run: |
+          if ("${{ secrets.SONAR_TOKEN }}" -eq "") {
+            throw "SONAR_TOKEN is not configured in GitHub Actions secrets."
+          }
+          "SONAR_TOKEN is configured."
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
