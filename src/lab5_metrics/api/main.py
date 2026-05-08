@@ -12,7 +12,10 @@ app = FastAPI(title="Lab 5 Metrics API")
 DATA_DIR = Path("data")
 
 
-@app.post("/analyze-metrics")
+@app.post(
+    "/analyze-metrics",
+    responses={400: {"description": "La imagen no pudo ser leida o no es valida."}},
+)
 def analyze(file: UploadFile) -> dict[str, float | int]:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     filename = Path(file.filename or "imagen").name

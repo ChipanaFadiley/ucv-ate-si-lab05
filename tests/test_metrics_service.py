@@ -12,7 +12,7 @@ def test_analizar_reads_image_and_returns_metrics(tmp_path):
 
     result = analizar(str(image_path))
 
-    assert result["mean"] == 75.0
+    assert result["mean"] == pytest.approx(75.0)
     assert result["min"] == 0
     assert result["max"] == 150
 

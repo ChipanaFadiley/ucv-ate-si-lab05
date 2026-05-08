@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from lab5_metrics.analyzer import ImageMetrics
 
@@ -8,8 +9,8 @@ def test_metrics_for_zero_image():
     analyzer = ImageMetrics()
     result = analyzer.calcular_metricas(img)
 
-    assert result["mean"] == 0.0
-    assert result["std"] == 0.0
+    assert result["mean"] == pytest.approx(0.0)
+    assert result["std"] == pytest.approx(0.0)
     assert result["min"] == 0
     assert result["max"] == 0
 
@@ -19,7 +20,7 @@ def test_metrics_for_mixed_image():
     analyzer = ImageMetrics()
     result = analyzer.calcular_metricas(img)
 
-    assert result["mean"] == 15.0
+    assert result["mean"] == pytest.approx(15.0)
     assert result["min"] == 0
     assert result["max"] == 30
 

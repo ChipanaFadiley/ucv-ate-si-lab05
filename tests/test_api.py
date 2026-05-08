@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import pytest
 from fastapi.testclient import TestClient
 
 from lab5_metrics.api import main
@@ -19,7 +20,7 @@ def test_analyze_metrics_endpoint_returns_image_metrics(tmp_path, monkeypatch):
         )
 
     assert response.status_code == 200
-    assert response.json()["mean"] == 25.0
+    assert response.json()["mean"] == pytest.approx(25.0)
 
 
 def test_analyze_metrics_endpoint_rejects_invalid_image(tmp_path, monkeypatch):
