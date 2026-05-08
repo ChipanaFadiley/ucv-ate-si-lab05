@@ -10,7 +10,7 @@ on:
 jobs:
   sonarqube:
     name: SonarQube
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -30,7 +30,7 @@ jobs:
         run: poetry install
 
       - name: Run tests with coverage
-        run: poetry run pytest -p pytest_cov --cov=src/lab5_metrics --cov-report=xml
+        run: poetry run pytest
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
