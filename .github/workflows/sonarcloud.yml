@@ -1,0 +1,44 @@
+name: Analisis con SonarCloud
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  sonarcloud:
+    name: Pruebas y analisis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Instalar Poetry
+        run: pipx install poetry
+
+      - name: Configurar entorno de Poetry
+        run: poetry config virtualenvs.in-project true
+
+      - name: Instalar dependencias
+        run: poetry install
+
+      - name: Ejecutar pruebas con cobertura
+        run: poetry run pytest
+
+      - name: Analizar en SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
