@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import NDArray
