@@ -53,26 +53,39 @@ poetry run pytest
 
 El comando genera `coverage.xml`, que queda referenciado en `sonar-project.properties`.
 
-## SonarQube / SonarCloud
+## SonarQube Cloud
 
-1. Crear un proyecto en SonarQube o SonarCloud.
-2. Crear un token desde `Account > Security > Generate Tokens`.
-3. Guardar el token en PowerShell:
+El proyecto esta preparado para analisis local con SonarScanner.
+
+1. Crear una organizacion en SonarQube Cloud con key:
+
+```text
+ucv-ate-si-lab05
+```
+
+2. Crear un proyecto manual con project key:
+
+```text
+ucv-ate-si-lab05
+```
+
+3. Crear un token desde `Account > Security > Generate Tokens`.
+4. Guardar el token en PowerShell:
 
 ```powershell
 $env:SONAR_TOKEN="tu_token"
 ```
 
-4. Ejecutar las pruebas para generar cobertura:
+5. Ejecutar las pruebas para generar cobertura:
 
 ```powershell
 poetry run pytest
 ```
 
-5. Ejecutar el scanner desde la raiz del repositorio:
+6. Ejecutar el scanner desde la raiz del repositorio:
 
 ```powershell
 sonar-scanner -D"sonar.token=$env:SONAR_TOKEN"
 ```
 
-Si SonarCloud pide organizacion o clave distinta, actualizar `sonar-project.properties` con los valores del proyecto creado.
+Si SonarQube Cloud muestra una organization key distinta, actualizar `sonar.organization` en `sonar-project.properties`.
