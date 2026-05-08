@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -28,16 +28,10 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Install coverage
-        run: poetry add --group dev coverage
-
       - name: Run tests with coverage
-        run: poetry run coverage run -m pytest
-
-      - name: Generate coverage.xml
-        run: poetry run coverage xml
+        run: poetry run pytest --cov=src --cov-report=xml
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
